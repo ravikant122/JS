@@ -1,4 +1,4 @@
-// beauty of Javascript runtime environment(JRE) 
+// beauty of Javascript runtime environment(JRE)
 // to execute JS, you need JRE and you can fit this JRE anywhere and then execute JS anywhere
 // Browsers, Node.js, even Java all has JRE
 
@@ -25,14 +25,14 @@
  5. copy elision
  */
 
- /*
+/*
  JS Execution context(EC) - it will be created when you run a program - it has two parts
  1. Memory component(aka variable env) - contains variables and function as key-value pairs
  2. code component(aka thread of execution) -  contains the code, and gets executed line by line
 
  JS is a single threaded synchronous programming lang
   */
- 
+
 /*
  How a program gets executed in JS
  1. first of all, a EC is being created and this one will be called Global execution context(GEC)
@@ -68,8 +68,7 @@
   this is because of execution context
 */
 
-  // undefined = memory has reserved but don't have any value
-
+// undefined = memory has reserved but don't have any value
 
 /*
   let and const and functions are all hoisted but we can't access let and const before declaration
@@ -93,21 +92,21 @@
  but var is global scoped, it means var is always have its place in global space means we can access var outside block 
  even if var is declared in block
  */
- {
-  var aA = 10
-  let bB = 20
-  const cC = 30
-  console.log(aA, bB, cC)
- }
- console.log(aA) // we can access var here but we can't access let and const outside of their scope 
+{
+  var aA = 10;
+  let bB = 20;
+  const cC = 30;
+  console.log(aA, bB, cC);
+}
+console.log(aA); // we can access var here but we can't access let and const outside of their scope
 //  console.log(bB)
 //  console.log(cC)
 
 function counter() {
-  var count =0
+  var count = 0;
 }
-counter()
-// console.log(count) // even though var is global scoped, we can't access count because each function has its diff EC 
+counter();
+// console.log(count) // even though var is global scoped, we can't access count because each function has its diff EC
 
 /*
  Lexical scope = scope of an item's definintion - means the area/scope where its defined, not where its invoked  
@@ -116,46 +115,46 @@ counter()
 /*
  Closure -- function with its lexical scope - closure has the function and the access to the items where that function is defined 
 */
-var vari = 200
-function x () {
-  var a = 10
+var vari = 200;
+function x() {
+  var a = 10;
   function y() {
-    console.log(a, vari) // and if doesn't found in the function and its parent function then it will keep searching in the upper heirarchy
+    console.log(a, vari); // and if doesn't found in the function and its parent function then it will keep searching in the upper heirarchy
   }
-  return y
+  return y;
 }
-var z = x()
-z() // here z = y and even though x is gone, y will remember a and that's the function with its lexical scope(surrounding space) 
+var z = x();
+z(); // here z = y and even though x is gone, y will remember a and that's the function with its lexical scope(surrounding space)
 // y have x's items access means it have their reference not the value
 
 // setTimeout - executes the callback function after the given time period.
 function timed() {
-  let i = 1000
+  let i = 1000;
   setTimeout(function () {
-    console.log(i)
-  }, 3000)
-  i = 2000 // setTimeout will print 2000 not 1000 because it remembers the reference of i not the value
-          // and we can only have one lexical scope 
-  console.log('hello')
+    console.log(i);
+  }, 3000);
+  i = 2000; // setTimeout will print 2000 not 1000 because it remembers the reference of i not the value
+  // and we can only have one lexical scope
+  console.log("hello");
 }
-timed()
-console.log('yellow')
+timed();
+console.log("yellow");
 // yellow will be printed before setTimeout's i, means timed function is gone
-// means setTimeout's callback function is a closure since it's a function that remembered its lexical scope 
+// means setTimeout's callback function is a closure since it's a function that remembered its lexical scope
 
 /*
 functions
  */
-above()
+above();
 // below()
 
-function above () {
-  console.log('above')
+function above() {
+  console.log("above");
 }
 
 var below = function () {
-  console.log('below')
-}
+  console.log("below");
+};
 // the difference betwween above functions are hoisting, we can call above but we can't call below before declaration
 
 // callbacks - nothing but a function passed as argument and can be called by some other function any time
@@ -169,18 +168,20 @@ var below = function () {
  */
 
 // data hiding using callback and closure
-let count = 0 // making this variable global isn't a good idea as it can be changed by anyone
-document.getElementById('clickMe').addEventListener('click', function xyz() {
-  console.log(++count)
-})
+let count = 0; // making this variable global isn't a good idea as it can be changed by anyone
+document.getElementById("clickMe").addEventListener("click", function xyz() {
+  console.log(++count);
+});
 
-function eventListenerFn () {
-  let counter = 0 // no one can change this because no one can use counter outside this fn
-  document.getElementById('clickMe2').addEventListener('click', function increaseCounter() {
-    console.log(++counter)
-  })
+function eventListenerFn() {
+  let counter = 0; // no one can change this because no one can use counter outside this fn
+  document
+    .getElementById("clickMe2")
+    .addEventListener("click", function increaseCounter() {
+      console.log(++counter);
+    });
 }
-eventListenerFn()
+eventListenerFn();
 
 /*
 Event loop
@@ -226,54 +227,89 @@ if its empty then it will check push the callback in the callstack
  above code looks like pyramid(pyramid of doom) - this code is not readable at all.
  */
 
-
 /*
 Promise status - Pending, fullfilled(Resolved), reject  
  */
 const promise1 = new Promise(function () {
   // the code inside promise starts executing as soon they get created
   // but we will get the result of the promise when we consume it
-})
-console.log(promise1)
+});
+console.log(promise1);
 
 const promise2 = new Promise((resolve, reject) => {
-  resolve("promise2 fullfilled") // here this code is executed as promise2 is created means when line 239 get executed
+  resolve("promise2 fullfilled"); // here this code is executed as promise2 is created means when line 239 get executed
   // but we will recieve resolve's string when we consume it
-})
+});
 const promiseResult = promise2.then((data) => {
-  console.log(data)
-  return 5 // we will get this 5 when we consume the promise returned by 5, this will always go into then coz we are not using resolve,reject
-})
-console.log(promiseResult) // then always returns a promise - that's why we can do promise chaining
-promiseResult.then(data => { // and then we can consume that promise
-  console.log("data is", data)
-}).catch((err) => {
-  console.log("err is ", err)
-})
-
-function getPromise3 () {
-  return new Promise((resolve, reject) => {
-    resolve("promise3 fullfilled")
+  console.log(data);
+  return 5; // we will get this 5 when we consume the promise returned by 5, this will always go into then coz we are not using resolve,reject
+});
+console.log(promiseResult); // then always returns a promise - that's why we can do promise chaining
+promiseResult
+  .then((data) => {
+    // and then we can consume that promise
+    console.log("data is", data);
   })
+  .catch((err) => {
+    console.log("err is ", err);
+  });
+
+function getPromise3() {
+  return new Promise((resolve, reject) => {
+    resolve("promise3 fullfilled");
+  });
 }
-promise2.then(data => {
-  console.log(data)
-  return getPromise3()
-}).then(data => {
-  console.log(data)
-})
+promise2
+  .then((data) => {
+    console.log(data);
+    return getPromise3();
+  })
+  .then((data) => {
+    console.log(data);
+  });
 
 // catch also returns a promise
 const promise4 = new Promise((resolve, reject) => {
-  reject("rejected")
-})
+  reject("rejected");
+});
 const promiseResult4 = promise4.catch((err) => {
-  console.log(err)
-})
-console.log(promise4) // here we can see that catch also returns a promise, so if you will put then after catch
+  console.log(err);
+});
+console.log(promise4); // here we can see that catch also returns a promise, so if you will put then after catch
 // that then will always be called because catch returned a promise
 
-// we created promise so that we don't do callback hell
+function greet(callbackFunc) {
+  setTimeout(() => {
+    callbackFunc();
+  }, 3000);
+}
+
+function greetMessage() {
+  console.log("hi there");
+}
+
+function welcome() {
+  greet(greetMessage);
+}
+
+const p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    // setTimeout will be registered and started getting executed as soon p1 promise get registed means as line 1 gets executed
+    resolve(); // but we will get this string when we consume this string
+    // this means if we consume this promise after setTimeout's timer, the string will be available to us quickly
+    // but if consume this promise lets say after 10 sec then we have to wait for 20 sec
+  }, 3000);
+});
+
+p1.then(greetMessage());
+
+/*
+  we created promise so that we don't do callback hell, promises are just syntactial sugars for callbacks
+  both below callback and promise will produce the same result and promise just use callbacks under the hood
+
+  we just use the promises for better readability and to avoid callback using .then and .catch and Promise.all and Promise.allSettled
+*/
+
 /*
 // creating the promise
 const myPromise = new Promise((resolve, reject) => {
@@ -294,62 +330,71 @@ myPromise.then((data) => {
  */
 
 // promises chaining - shopping order example
-createOrder({}) // these function will call their APIs and returns a promise  
+createOrder({}) // these function will call their APIs and returns a promise
   .then((orderId) => {
-  console.log(orderId)
-  return proceedToPayment(orderId)
-}).then(paymentInfo => {
-  console.log(paymentInfo)
-  return orderSummary(paymentInfo)
-}).then(orderInfo => {
-  console.log(orderInfo)
-  showOrderInfo(orderInfo)
-}).catch(err => { // we just need one catch for all then
-  console.log(err)
-})
+    console.log(orderId);
+    return proceedToPayment(orderId);
+  })
+  .then((paymentInfo) => {
+    console.log(paymentInfo);
+    return orderSummary(paymentInfo);
+  })
+  .then((orderInfo) => {
+    console.log(orderInfo);
+    showOrderInfo(orderInfo);
+  })
+  .catch((err) => {
+    // we just need one catch for all then
+    console.log(err);
+  });
 
 function createOrder(cart) {
   return new Promise((resolve, reject) => {
-    resolve("12345")
-  })
+    resolve("12345");
+  });
 }
 function proceedToPayment(orderId) {
   return new Promise((resolve, reject) => {
     if (typeof orderId != "number") {
-      reject("Payment unsuccessful")
+      reject("Payment unsuccessful");
     } else {
-      resolve("Payment successful")
+      resolve("Payment successful");
     }
-  })
+  });
 }
 function orderSummary(paymentInfo) {
   return new Promise((resolve, reject) => {
     if (paymentInfo === "Payment unsuccessful") {
-      resolve("order is dispatched")
+      resolve("order is dispatched");
     } else {
-      reject("order cannot be dispatched")
+      reject("order cannot be dispatched");
     }
-  })
+  });
 }
 
 // if you want to use catch for each individual promises
 createOrder({})
   .then((orderId) => {
-  console.log(orderId)
-  return proceedToPayment(orderId)
-}).catch(err => {
-  console.log(err)
-}).then(paymentInfo => {
-  console.log(paymentInfo)
-  return orderSummary(paymentInfo)
-}).catch(err => {
-  console.log(err) // here we will get the error but the following then will run no matter what becuase cathc also returns a promise
-}).then(orderInfo => {
-  console.log(orderInfo)
-  // showOrderInfo(orderInfo)
-}).catch(err => { 
-  console.log(err)
-})
+    console.log(orderId);
+    return proceedToPayment(orderId);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .then((paymentInfo) => {
+    console.log(paymentInfo);
+    return orderSummary(paymentInfo);
+  })
+  .catch((err) => {
+    console.log(err); // here we will get the error but the following then will run no matter what becuase cathc also returns a promise
+  })
+  .then((orderInfo) => {
+    console.log(orderInfo);
+    // showOrderInfo(orderInfo)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 /*
 promise.all - it takes array of promises and runs them parallely and returns an array of data
@@ -364,4 +409,3 @@ promise.allSettled - same as promise.all but it waits for all promises to be ret
 then it returns array of data and error(if some promise returns the error)
 means there only be .then - we won't use .catch
  */
-
