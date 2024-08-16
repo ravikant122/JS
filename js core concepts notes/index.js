@@ -1,3 +1,10 @@
+// we can run js file using node(node should be installed on machine)
+// > node filename.js
+
+// diff bw interpreted and compiled lang
+// compiler first compile the file in which it looks for error and if no error then it runs the code
+//   interpreter compiles and runs the code line by line so if error comes later then we can have some output 
+
 // beauty of Javascript runtime environment(JRE)
 // to execute JS, you need JRE and you can fit this JRE anywhere and then execute JS anywhere
 // Browsers, Node.js, even Java all has JRE
@@ -49,6 +56,8 @@
  
  so we had a callStack for the ECs and we don't need another callstack for a particular EC.
  */
+
+ // website to see how js runs your code - http://latentflip.com/loupe/
 
 /*
   Hoisting - you can access variables and functions before declaring them - for example
@@ -166,6 +175,10 @@ var below = function () {
 
  so that's how callback provides async prog.
  */
+
+// JS is a single threaded means it can only run single line at a time
+// but we can make it asynchornous using callbacks, promises and async await, timeout etc.
+// other thing we can use is WebWorker
 
 // data hiding using callback and closure
 let count = 0; // making this variable global isn't a good idea as it can be changed by anyone
