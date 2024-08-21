@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- as soone as the user input a letter number, it will calculate sum if we use calculateSum, which is our base function 
+   to fetch some, means we'll call the API on every letter user enters
+
+   that's why we've to wait for user to enter the number he/she wants to enter
+   this principal of delaying the call to an API is called debouncing
+   and we can achieve this using setTimeout
+
+   on first input, we start setTimeout for some delay like 1sec(or 100ms) as if user again inputs then we cancel
+   current timeout and start a new one
+   -->
+    <input
+      id="firstNum"
+      type="text"
+      placeholder="enter first number"
+      oninput="betterDebounceCalculateSum()"
+    /><br />
+    <input
+      id="secondNum"
+      type="text"
+      placeholder="enter first number"
+      oninput="betterDebounceCalculateSum()"
+    /><br />
+    <div id="finalSum"></div>
+
+    <script src="js_debouncing.js"></script>
+  </body>
+</html>
